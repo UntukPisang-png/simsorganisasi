@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('nip');
             $table->string('golongan');
             $table->string('pangkat');
+            $table->string('jabatan');
             $table->string('divisi');
             $table->foreignId('user_id');
             $table->timestamps();
