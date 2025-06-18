@@ -1,0 +1,13 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+/* .fi-topbar > nav { 
+    @apply !bg-inherit ring-0 shadow-none;
+    background-image: url('images/topbar.png');
+    background-size: cover;
+    background-position: center;
+} */
+ 
+/* .fi-sidebar-header {
+    @apply !bg-inherit ring-0 shadow-none;
+}  */

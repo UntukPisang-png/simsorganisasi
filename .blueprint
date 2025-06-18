@@ -1,0 +1,26 @@
+created:
+    - database/factories/BiayaRiilFactory.php
+    - database/migrations/2025_06_03_031434_create_biaya_riils_table.php
+    - app/Models/BiayaRiil.php
+models:
+    Book: { title: string, author: string, description: text }
+    Contact: { name: string }
+    Post: { title: string, content: text }
+    User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: 'string nullable', remember_token: 'string:100 nullable', avatar_url: 'string nullable' }
+    Pegawai: { nama: 'string:100', nip: 'integer:20', golongan: 'varchar:50', pangkat: 'varchar:50', divisi: 'varchar:50', relationships: { belongsTo: User, hasMany: Disposisi } }
+    SuratMasuk: { no_suratmasuk: 'varchar:20', tgl_suratmasuk: date, tgl_diterima: date, pengirim: 'varchar:50', perihal: string, file_suratmasuk: string, status_disposisi: integer, relationships: { belongsTo: Kategori, hasMany: Disposisi } }
+    Kategori: { nama_kategori: 'varchar:50', relationships: { hasMany: SuratMasuk } }
+    Disposisi: { sifat: 'enum:Sangat Segera, Segera, Rahasia', tindakan: 'enum:Tanggapan dan Saran, Proses Lebih Lanut, Konfirmasi, Hadiri', catatan: string, relationships: { belongsTo: 'SuratMasuk, Pegawai' } }
+    SuratKeluar: { no_suratkeluar: 'varchar:20', tgl_suratkeluar: date, perihal: string, lampiran: string, tujuan: string, file_suratkeluar: string, relationships: { belongsTo: Kategori } }
+    SuratUndangan: { no_surat: 'varchar:20', lampiran: string, perihal: string, tgl_surat: date, kepada: string, di: string, isi_surat: text, tgl_undangan: date, tempat_undangan: string, waktu_undangan: time, penutup: text, nama_ttd: string, jabatan_ttd: string, nip_ttd: string, relationships: { belongsTo: SuratKeluar } }
+    SuratTugas: { no_surat: 'varchar:20', tgl_surat: date, kepada: string, isi_surat: text, penutup: text, nama_ttd: string, jabatan_ttd: string, nip_ttd: string, relationships: { belongsTo: Pegawai } }
+    SuratDinas: { no_surat: 'varchar:20', tgl_surat: date, sifat: string, lampiran: string, perihal: string, kepada: string, tempat: string, isi_surat: text, jabatan_ttd: string, nama_ttd: string, nip_ttd: bigint }
+    NotaDinas: { kepada: text, dari: text, tembusan: text, tgl_surat: date, no_surat: 'varchar:20', sifat: string, lampiran: string, perihal: string, isi_surat: text, detail_surat: text, penutup: text, paraf: text, jabatan_ttd: string, nama_ttd: string, pangkat: string, golongan: string, nip_ttd: bigint }
+    SuratEdaran: { kepada: text, no_surat: 'varchar:20', tahun_edaran: integer, isi_surat: text, tgl_surat: date, jabatan_ttd: string, nama_ttd: string }
+    SuratPengantar: { no_surat: 'varchar:20', tgl_surat: date, kepada: string, di: string, naskah_dinas: string, jumlah: integer, keterangan: text, tgl_diterima: date, penerima: string, pengirim: string, relationships: { belongsTo: Pegawai } }
+    TelaahanStaf: { kepada: text, dari: text, tgl_surat: date, no_surat: 'varchar:20', lampiran: string, perihal: string, persoalan: text, praanggapan: text, fakta: text, analisis: text, saran: text, jabatan_ttd: string, nama_ttd: string, nip_ttd: bigint }
+    LaporanKegiatan: { no_laporan: 'varchar:20', umum: text, landasan: text, maksud: text, kegiatan: text, hasil: text, kesimpulan: text, penutup: text, paraf: text, jabatan_ttd: string, nama_ttd: string, nip_ttd: bigint }
+    TugasPegawai: { relationships: { belongsTo: 'Pegawai, SuratTugas' } }
+    SPPD: { nomor: varchar, perintah_dari: string, maksud: text, berangkat: string, tujuan: string, angkutan: string, lama_perjadin: string, tgl_berangkat: date, tgl_kembali: date, pengikut: text, tgl_lahir: date, keterangan_pengikut: text, bebasbiaya_instansi: bigint, bebasbiaya_akun: bigint, keterangan: text, tgl_surat: date, jabatan_ttd: string, nama_ttd: string, pangkat_ttd: string, nip_ttd: bigint, catatan_lembar2: text, relationships: { belongsTo: 'Pegawai, SuratTugas' } }
+    biaya_perjadin: { uang_harian: bigint, penginapan: longtext, transportasi: longtext, relationships: { belongsTo: 'SPPD, Pegawai' } }
+    BiayaRiil: { pengeluaran: longtext, relationships: { belongsTo: 'SPPD, BiayaPerjadin' } }
